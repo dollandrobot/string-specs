@@ -1,0 +1,20 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "/Users/andy/Library/Application Support/Herd/bin/php84",
+            "args": [
+                "/Users/andy/dev/dollandrobot/string-specs/artisan",
+                "boost:mcp"
+            ]
+        },
+        "herd": {
+            "command": "/Users/andy/Library/Application Support/Herd/bin/php84",
+            "args": [
+                "/Applications/Herd.app/Contents/Resources/herd-mcp.phar"
+            ],
+            "env": {
+                "SITE_PATH": "/Users/andy/dev/dollandrobot/string-specs"
+            }
+        }
+    }
+}
