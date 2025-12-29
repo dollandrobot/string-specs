@@ -2,12 +2,9 @@
 
 declare(strict_types=1);
 
-use App\Providers\AppServiceProvider;
-use App\Providers\FortifyServiceProvider;
-use App\Providers\VoltServiceProvider;
-
 return [
-    AppServiceProvider::class,
-    FortifyServiceProvider::class,
-    VoltServiceProvider::class,
+    App\Providers\AppServiceProvider::class,
+    App\Providers\Filament\AdminPanelProvider::class,
+    App\Providers\FortifyServiceProvider::class,
+    App\Providers\VoltServiceProvider::class,
 ];

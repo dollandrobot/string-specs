@@ -3,13 +3,11 @@
     "name": "dollandrobot/string-specs",
     "type": "project",
     "description": "A website for cataloging specifications of bass & guitar strings",
-    "keywords": [
-        "laravel",
-        "framework"
-    ],
+    "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
         "php": "^8.4",
+        "filament/filament": "^4.0",
         "laravel/fortify": "^1.33",
         "laravel/framework": "^12.43.1",
         "laravel/tinker": "^2.10.2",
@@ -83,7 +81,8 @@
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan filament:upgrade"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
