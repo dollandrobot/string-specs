@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 
 final class Brand extends Model
 {
-    /** @use HasFactory<\Database\Factories\BrandFactory> */
-    use HasFactory, HasUuids;
+    use HasFactory;
+    use HasUuids;
 
     protected $fillable = [
         'name',

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Models\Brand;
+use Illuminate\Database\QueryException;
 
 test('can create a brand', function (): void {
     $brand = Brand::factory()->create([
@@ -29,7 +30,7 @@ test('brand name is unique', function (): void {
     Brand::factory()->create(['name' => 'Unique Brand']);
 
     expect(fn () => Brand::factory()->create(['name' => 'Unique Brand']))
-        ->toThrow(Illuminate\Database\QueryException::class);
+        ->toThrow(QueryException::class);
 });
 
 test('brand website is optional', function (): void {
