@@ -82,7 +82,7 @@ test('can retrieve brand data for editing', function (): void {
         ->assertFormSet([
             'name' => $brand->name,
             'website' => $brand->website,
-            'country_code' => $brand->country_code,
+            'country_code' => $brand->country_code?->value,
             'logo_path' => $brand->logo_path,
         ]);
 });
