@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Models\Brand;
+use App\Models\User;
 use Illuminate\Database\QueryException;
 
 test('can create a brand', function (): void {
@@ -56,4 +57,30 @@ test('brand has timestamps', function (): void {
 
     expect($brand->created_at)->not->toBeNull()
         ->and($brand->updated_at)->not->toBeNull();
+});
+
+test('brand can have a creator', function (): void {
+    $user = User::factory()->create();
+    $brand = Brand::factory()->create(['created_by' => $user->id]);
+
+    expect($brand->created_by)->toBe($user->id)
+        ->and($brand->creator)->toBeInstanceOf(User::class)
+        ->and($brand->creator->id)->toBe($user->id);
+});
+
+test('brand created_by is optional', function (): void {
+    $brand = Brand::factory()->create(['created_by' => null]);
+
+    expect($brand->created_by)->toBeNull()
+        ->and($brand->creator)->toBeNull();
+});
+
+test('brand creator relationship is nullified when user is deleted', function (): void {
+    $user = User::factory()->create();
+    $brand = Brand::factory()->create(['created_by' => $user->id]);
+
+    $user->delete();
+    $brand->refresh();
+
+    expect($brand->created_by)->toBeNull();
 });

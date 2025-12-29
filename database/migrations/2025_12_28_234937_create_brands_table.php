@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('website')->nullable();
             $table->string('logo_path')->nullable();
-            $table->string('country_code')->nullable();
+            $table->string('country_code', 2)->nullable();
+            $table->foreignUuid('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
     }

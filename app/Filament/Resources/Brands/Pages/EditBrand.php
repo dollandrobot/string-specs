@@ -12,7 +12,7 @@ final class EditBrand extends EditRecord
 {
     protected static string $resource = BrandResource::class;
 
-    protected function getHeaderActions(): array
+    public function getHeaderActions(): array
     {
         return [
             DeleteAction::make(),

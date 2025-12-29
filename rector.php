@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodeQuality\Rector\ClassMethod\ExplicitReturnNullRector;
+use Rector\CodingStyle\Rector\ClassMethod\MakeInheritedMethodVisibilitySameAsParentRector;
 use Rector\Config\RectorConfig;
 use Rector\Privatization\Rector\ClassMethod\PrivatizeFinalClassMethodRector;
 use RectorLaravel\Set\LaravelSetList;
@@ -53,6 +54,10 @@ return RectorConfig::configure()
         '*/app/Models/User.php',
         PrivatizeFinalClassMethodRector::class => [
             __DIR__.'/app/Filament',
+        ],
+        MakeInheritedMethodVisibilitySameAsParentRector::class => [
+            __DIR__.'/app/Filament',
+            __DIR__.'/app/Models',
         ],
         ExplicitReturnNullRector::class,
     ]);

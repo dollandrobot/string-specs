@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,6 +23,7 @@ final class BrandFactory extends Factory
             'name' => fake()->unique()->company,
             'website' => fake()->optional()->url,
             'country_code' => fake()->optional()->countryCode,
+            'created_by' => User::factory(),
         ];
     }
 }
