@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\CountryCode;
 use Database\Factories\BrandFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -44,7 +45,7 @@ final class Brand extends Model
             'name' => 'string',
             'website' => 'string',
             'logo_path' => 'string',
-            'country_code' => 'string',
+            'country_code' => CountryCode::class,
         ];
     }
 }

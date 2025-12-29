@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Enums\CountryCode;
 use App\Models\Brand;
 use App\Models\User;
 use Illuminate\Database\QueryException;
@@ -10,12 +11,12 @@ test('can create a brand', function (): void {
     $brand = Brand::factory()->create([
         'name' => 'Test Brand',
         'website' => 'https://example.com',
-        'country_code' => 'US',
+        'country_code' => CountryCode::UnitedStates,
     ]);
 
     expect($brand->name)->toBe('Test Brand')
         ->and($brand->website)->toBe('https://example.com')
-        ->and($brand->country_code)->toBe('US')
+        ->and($brand->country_code)->toBe(CountryCode::UnitedStates)
         ->and($brand->id)->toBeString();
 });
 

@@ -18,24 +18,30 @@ final class BrandsTable
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
+                    ->label(__('ID')),
                 TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable()
+                    ->label(__('Brand Name')),
                 TextColumn::make('website')
-                    ->searchable(),
+                    ->searchable()
+                    ->label(__('Website URL')),
                 ImageColumn::make('logo_path')
-                    ->searchable(),
+                    ->disk('public')
+                    ->rounded()
+                    ->label(__('Brand Logo')),
                 TextColumn::make('country_code')
-                    ->searchable(),
+                    ->searchable()
+                    ->label(__('Country Code')),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label(__('Created At')),
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label(__('Updated At')),
             ])
             ->filters([
                 //

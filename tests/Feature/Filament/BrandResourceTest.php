@@ -157,27 +157,7 @@ test('can sort brands by name', function (): void {
         ->assertSuccessful();
 });
 
-test('can validate country code format', function (): void {
-    Livewire::test(CreateBrand::class)
-        ->fillForm([
-            'name' => 'Test Brand',
-            'country_code' => 'usa',
-        ])
-        ->call('create')
-        ->assertHasFormErrors(['country_code' => 'regex']);
-});
-
-test('can validate country code is uppercase', function (): void {
-    Livewire::test(CreateBrand::class)
-        ->fillForm([
-            'name' => 'Test Brand',
-            'country_code' => 'us',
-        ])
-        ->call('create')
-        ->assertHasFormErrors(['country_code' => 'regex']);
-});
-
-test('can accept valid country code', function (): void {
+test('can accept valid country code from enum', function (): void {
     Livewire::test(CreateBrand::class)
         ->fillForm([
             'name' => 'Test Brand',
