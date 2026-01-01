@@ -8,7 +8,6 @@ use App\Filament\Resources\StringSets\Pages\ListStringSets;
 use App\Models\Brand;
 use App\Models\StringSet;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Livewire\Livewire;
 
 beforeEach(function (): void {
@@ -40,7 +39,7 @@ test('can create string set', function (): void {
             'brand_id' => $brand->id,
             'name' => 'Test String Set',
             'product_code' => 'TS-12345',
-            'winding_length' => 32.50,
+            'winding_length' => 325,
             'number_of_strings' => 6,
             'high_gauge' => 45,
             'low_gauge' => 105,
@@ -51,29 +50,11 @@ test('can create string set', function (): void {
     $this->assertDatabaseHas(StringSet::class, [
         'name' => 'Test String Set',
         'product_code' => 'TS-12345',
-        'winding_length' => 3250, // Stored as integer
+        'winding_length' => 325,
         'number_of_strings' => 6,
         'high_gauge' => 45,
         'low_gauge' => 105,
     ]);
-});
-
-test('winding_length is transformed correctly when creating', function (): void {
-    $brand = Brand::factory()->create();
-
-    Livewire::test(CreateStringSet::class)
-        ->fillForm([
-            'brand_id' => $brand->id,
-            'name' => 'Test String Set',
-            'winding_length' => 42.75,
-        ])
-        ->call('create')
-        ->assertHasNoFormErrors();
-
-    $stringSet = StringSet::query()->where('name', 'Test String Set')->first();
-
-    expect($stringSet->getAttributes()['winding_length'])->toBe(4275)
-        ->and($stringSet->winding_length)->toBe(42.75);
 });
 
 test('can validate string set name is required', function (): void {
@@ -95,13 +76,46 @@ test('can render string set edit page', function (): void {
         ->assertOk();
 });
 
+test('edit page eager loads brand relationship', function (): void {
+    $brand = Brand::factory()->create(['name' => 'Test Brand']);
+    $stringSet = StringSet::factory()->create([
+        'brand_id' => $brand->id,
+        'name' => 'Test Set',
+    ]);
+
+    $component = Livewire::test(EditStringSet::class, ['record' => $stringSet->getRouteKey()]);
+
+    expect($component->instance()->record->relationLoaded('brand'))->toBeTrue();
+    expect($component->instance()->getHeading())->toBe('Edit Test Brand Test Set');
+});
+
+test('edit page loads record and brand in single query context', function (): void {
+    $brand = Brand::factory()->create(['name' => 'Test Brand']);
+    $stringSet = StringSet::factory()->create([
+        'brand_id' => $brand->id,
+        'name' => 'Test Set',
+    ]);
+
+    // Load the component
+    $component = Livewire::test(EditStringSet::class, ['record' => $stringSet->getRouteKey()]);
+
+    // Verify brand is already loaded (proving with() was used)
+    expect($component->instance()->record->relationLoaded('brand'))->toBeTrue();
+
+    // Verify we can access brand properties without issues
+    $record = $component->instance()->record;
+    expect($record->brand)->not->toBeNull()
+        ->and($record->brand->name)->toBe('Test Brand')
+        ->and($record->brand->id)->toBe($brand->id);
+});
+
 test('can retrieve string set data for editing', function (): void {
     $brand = Brand::factory()->create();
     $stringSet = StringSet::factory()->create([
         'brand_id' => $brand->id,
         'name' => 'Original Name',
         'product_code' => 'TS-99999',
-        'winding_length' => 35.25,
+        'winding_length' => 3525,
         'number_of_strings' => 5,
         'high_gauge' => '50',
         'low_gauge' => '110',
@@ -112,26 +126,10 @@ test('can retrieve string set data for editing', function (): void {
             'brand_id' => $brand->id,
             'name' => 'Original Name',
             'product_code' => 'TS-99999',
-            'winding_length' => 35.25, // Should be displayed as decimal
+            'winding_length' => 3525,
             'number_of_strings' => 5,
             'high_gauge' => '50',
             'low_gauge' => '110',
-        ]);
-});
-
-test('winding_length displays as decimal in edit form', function (): void {
-    $stringSet = StringSet::factory()->create();
-
-    // Directly update the database without going through the mutator
-    DB::table('string_sets')
-        ->where('id', $stringSet->id)
-        ->update(['winding_length' => 4043]);
-
-    $stringSet->refresh();
-
-    Livewire::test(EditStringSet::class, ['record' => $stringSet->getRouteKey()])
-        ->assertFormSet([
-            'winding_length' => 40.43,
         ]);
 });
 
@@ -144,7 +142,7 @@ test('can update string set', function (): void {
             'brand_id' => $brand->id,
             'name' => 'Updated Name',
             'product_code' => 'UP-12345',
-            'winding_length' => 28.50,
+            'winding_length' => 285,
             'number_of_strings' => 4,
             'high_gauge' => '40',
             'low_gauge' => '100',
@@ -156,8 +154,7 @@ test('can update string set', function (): void {
 
     expect($stringSet->name)->toBe('Updated Name')
         ->and($stringSet->product_code)->toBe('UP-12345')
-        ->and($stringSet->winding_length)->toBe(28.50)
-        ->and($stringSet->getAttributes()['winding_length'])->toBe(2850)
+        ->and($stringSet->winding_length)->toBe(285)
         ->and($stringSet->number_of_strings)->toBe(4)
         ->and($stringSet->high_gauge)->toBe(40)
         ->and($stringSet->low_gauge)->toBe(100)
@@ -248,4 +245,13 @@ test('created_by is automatically set on create', function (): void {
     $stringSet = StringSet::query()->where('name', 'Test String Set')->first();
 
     expect($stringSet->created_by)->toBe($user->id);
+});
+
+test('can delete string set from edit page', function (): void {
+    $stringSet = StringSet::factory()->create();
+
+    Livewire::test(EditStringSet::class, ['record' => $stringSet->getRouteKey()])
+        ->callAction('delete');
+
+    $this->assertModelMissing($stringSet);
 });

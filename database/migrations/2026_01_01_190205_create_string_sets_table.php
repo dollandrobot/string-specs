@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('string_sets', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('created_by')->nullable()->constrained('users')->nullOnDelete();
-            $table->foreignUuid('brand_id')->nullable()->constrained('brands')->nullOnDelete();
+            $table->foreignUuid('brand_id')->constrained('brands')->cascadeOnDelete();
             $table->string('name');
             $table->string('product_code')->nullable();
             $table->integer('winding_length')->nullable();

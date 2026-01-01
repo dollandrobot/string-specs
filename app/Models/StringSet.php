@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -56,16 +55,5 @@ final class StringSet extends Model
             'high_gauge' => 'integer',
             'low_gauge' => 'integer',
         ];
-    }
-
-    /**
-     * @return Attribute<float|int|null, float|null>
-     */
-    protected function windingLength(): Attribute
-    {
-        return Attribute::make(
-            get: fn (mixed $value): int|float|null => $value !== null ? (int) $value / 100 : null,
-            set: fn (?float $value): ?int => $value !== null ? (int) ($value * 100) : null,
-        );
     }
 }

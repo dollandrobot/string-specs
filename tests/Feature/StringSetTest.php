@@ -5,7 +5,6 @@ declare(strict_types=1);
 use App\Models\Brand;
 use App\Models\StringSet;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
 test('can create a string set', function (): void {
     $brand = Brand::factory()->create();
@@ -37,27 +36,6 @@ test('string set uses uuid as primary key', function (): void {
     expect($stringSet->id)
         ->toBeString()
         ->toMatch('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/');
-});
-
-test('winding_length accessor divides database value by 100', function (): void {
-    $stringSet = StringSet::factory()->create();
-
-    // Directly update the database without going through the mutator
-    DB::table('string_sets')
-        ->where('id', $stringSet->id)
-        ->update(['winding_length' => 3250]);
-
-    $stringSet->refresh();
-
-    expect($stringSet->winding_length)->toBe(32.50);
-});
-
-test('winding_length mutator multiplies value by 100 for storage', function (): void {
-    $stringSet = StringSet::factory()->create();
-    $stringSet->winding_length = 42.75;
-    $stringSet->save();
-
-    expect($stringSet->getAttributes()['winding_length'])->toBe(4275);
 });
 
 test('winding_length handles null values', function (): void {
