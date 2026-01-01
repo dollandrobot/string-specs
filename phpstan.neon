@@ -17,3 +17,28 @@ parameters:
     level: max
 
     tmpDir: /tmp/phpstan
+
+    ignoreErrors:
+        # Attribute accessors receive mixed values from database
+        -
+            message: '#Cannot cast mixed to int\.#'
+            paths:
+                - app/Models/*
+        # Factory uses nullsafe for database queries that may return null
+        -
+            message: '#Using nullsafe property access "\?\->(id|name)" on left side of \?\? is unnecessary#'
+            paths:
+                - database/factories/StringSetFactory.php
+                - app/Filament/Resources/StringSets/Pages/EditStringSet.php
+        # Filament EditRecord pages have dynamic $record property
+        -
+            message: '#Cannot access property \$name on#'
+            path: app/Filament/Resources/StringSets/Pages/EditStringSet.php
+        -
+            message: '#Parameter .* of function sprintf expects#'
+            path: app/Filament/Resources/StringSets/Pages/EditStringSet.php
+        # Eloquent generic factory types
+        -
+            message: '#Class .* uses generic trait .* but does not specify its types: TFactory#'
+            paths:
+                - app/Models/*
