@@ -25,5 +25,9 @@ final class DatabaseSeeder extends Seeder
                 'email_verified_at' => now(),
             ]
         );
+
+        $this->call([
+            BrandSeeder::class,
+        ]);
     }
 }
