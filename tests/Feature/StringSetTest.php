@@ -14,19 +14,19 @@ test('can create a string set', function (): void {
         'brand_id' => $brand->id,
         'name' => 'Test String Set',
         'product_code' => 'TS-12345',
-        'winding_length' => 32.50,
+        'winding_length' => 3250,
         'number_of_strings' => 6,
-        'high_gauge' => '45',
-        'low_gauge' => '105',
+        'highest_string_gauge' => '45',
+        'lowest_string_gauge' => '105',
         'created_by' => $user->id,
     ]);
 
     expect($stringSet->name)->toBe('Test String Set')
         ->and($stringSet->product_code)->toBe('TS-12345')
-        ->and($stringSet->winding_length)->toBe(32.50)
+        ->and($stringSet->winding_length)->toBe(3250)
         ->and($stringSet->number_of_strings)->toBe(6)
-        ->and($stringSet->high_gauge)->toBe(45)
-        ->and($stringSet->low_gauge)->toBe(105)
+        ->and($stringSet->highest_string_gauge)->toBe(45)
+        ->and($stringSet->lowest_string_gauge)->toBe(105)
         ->and($stringSet->id)->toBeString();
 });
 
@@ -89,16 +89,16 @@ test('string set number_of_strings is optional', function (): void {
     expect($stringSet->number_of_strings)->toBeNull();
 });
 
-test('string set high_gauge is optional', function (): void {
-    $stringSet = StringSet::factory()->create(['high_gauge' => null]);
+test('string set highest_string_gauge is optional', function (): void {
+    $stringSet = StringSet::factory()->create(['highest_string_gauge' => null]);
 
-    expect($stringSet->high_gauge)->toBeNull();
+    expect($stringSet->highest_string_gauge)->toBeNull();
 });
 
-test('string set low_gauge is optional', function (): void {
-    $stringSet = StringSet::factory()->create(['low_gauge' => null]);
+test('string set lowest_string_gauge is optional', function (): void {
+    $stringSet = StringSet::factory()->create(['lowest_string_gauge' => null]);
 
-    expect($stringSet->low_gauge)->toBeNull();
+    expect($stringSet->lowest_string_gauge)->toBeNull();
 });
 
 test('string set has timestamps', function (): void {

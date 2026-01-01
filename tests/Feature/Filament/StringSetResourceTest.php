@@ -41,8 +41,8 @@ test('can create string set', function (): void {
             'product_code' => 'TS-12345',
             'winding_length' => 325,
             'number_of_strings' => 6,
-            'high_gauge' => 45,
-            'low_gauge' => 105,
+            'highest_string_gauge' => 45,
+            'lowest_string_gauge' => 105,
         ])
         ->call('create')
         ->assertHasNoFormErrors();
@@ -52,8 +52,8 @@ test('can create string set', function (): void {
         'product_code' => 'TS-12345',
         'winding_length' => 325,
         'number_of_strings' => 6,
-        'high_gauge' => 45,
-        'low_gauge' => 105,
+        'highest_string_gauge' => 45,
+        'lowest_string_gauge' => 105,
     ]);
 });
 
@@ -117,8 +117,8 @@ test('can retrieve string set data for editing', function (): void {
         'product_code' => 'TS-99999',
         'winding_length' => 3525,
         'number_of_strings' => 5,
-        'high_gauge' => '50',
-        'low_gauge' => '110',
+        'highest_string_gauge' => '50',
+        'lowest_string_gauge' => '110',
     ]);
 
     Livewire::test(EditStringSet::class, ['record' => $stringSet->getRouteKey()])
@@ -128,8 +128,8 @@ test('can retrieve string set data for editing', function (): void {
             'product_code' => 'TS-99999',
             'winding_length' => 3525,
             'number_of_strings' => 5,
-            'high_gauge' => '50',
-            'low_gauge' => '110',
+            'highest_string_gauge' => '50',
+            'lowest_string_gauge' => '110',
         ]);
 });
 
@@ -144,8 +144,8 @@ test('can update string set', function (): void {
             'product_code' => 'UP-12345',
             'winding_length' => 285,
             'number_of_strings' => 4,
-            'high_gauge' => '40',
-            'low_gauge' => '100',
+            'highest_string_gauge' => '40',
+            'lowest_string_gauge' => '100',
         ])
         ->call('save')
         ->assertHasNoFormErrors();
@@ -156,8 +156,8 @@ test('can update string set', function (): void {
         ->and($stringSet->product_code)->toBe('UP-12345')
         ->and($stringSet->winding_length)->toBe(285)
         ->and($stringSet->number_of_strings)->toBe(4)
-        ->and($stringSet->high_gauge)->toBe(40)
-        ->and($stringSet->low_gauge)->toBe(100)
+        ->and($stringSet->highest_string_gauge)->toBe(40)
+        ->and($stringSet->lowest_string_gauge)->toBe(100)
         ->and($stringSet->brand_id)->toBe($brand->id);
 });
 

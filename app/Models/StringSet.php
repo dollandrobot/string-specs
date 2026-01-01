@@ -20,8 +20,8 @@ final class StringSet extends Model
         'product_code',
         'winding_length',
         'number_of_strings',
-        'high_gauge',
-        'low_gauge',
+        'highest_string_gauge',
+        'lowest_string_gauge',
         'created_by',
     ];
 
@@ -52,8 +52,9 @@ final class StringSet extends Model
             'name' => 'string',
             'product_code' => 'string',
             'number_of_strings' => 'integer',
-            'high_gauge' => 'integer',
-            'low_gauge' => 'integer',
+            'winding_length' => 'integer',
+            'highest_string_gauge' => 'integer',
+            'lowest_string_gauge' => 'integer',
         ];
     }
 }

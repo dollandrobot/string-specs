@@ -15,28 +15,30 @@ final class StringSetForm
         return $schema
             ->components([
                 Select::make('brand_id')
-                    ->relationship('brand', 'name'),
+                    ->relationship('brand', 'name')
+                    ->required()
+                    ->label(__('Brand')),
                 TextInput::make('name')
                     ->required(),
                 TextInput::make('product_code'),
                 TextInput::make('winding_length')
                     ->numeric()
-                    ->step(0.01)
+                    ->step(1)
                     ->minValue(100)
                     ->maxValue(6000),
                 TextInput::make('number_of_strings')
-                    ->numeric()
+                    ->integer()
                     ->minValue(1)
                     ->maxValue(18),
-                TextInput::make('high_gauge')
-                    ->numeric()
+                TextInput::make('highest_string_gauge')
+                    ->integer()
                     ->minValue(1)
                     ->maxValue(200),
-                TextInput::make('low_gauge')
-                    ->numeric()
+                TextInput::make('lowest_string_gauge')
+                    ->integer()
                     ->minValue(1)
                     ->maxValue(200)
-                    ->gt('high_gauge'),
+                    ->gt('highest_string_gauge'),
             ]);
     }
 }

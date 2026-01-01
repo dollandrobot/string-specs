@@ -31,11 +31,11 @@ final class StringSetsTable
                 TextColumn::make('number_of_strings')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('high_gauge')
+                TextColumn::make('highest_string_gauge')
                     ->searchable(),
-                TextColumn::make('low_gauge')
+                TextColumn::make('lowest_string_gauge')
                     ->searchable(),
-                TextColumn::make('created_by')
+                TextColumn::make('creator.name')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()

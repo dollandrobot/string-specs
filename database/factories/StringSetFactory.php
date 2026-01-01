@@ -24,10 +24,10 @@ final class StringSetFactory extends Factory
             'brand_id' => Brand::inRandomOrder()->first()->id ?? Brand::factory(),
             'name' => fake()->word,
             'product_code' => fake()->optional()->bothify('??-#####'),
-            'winding_length' => fake()->optional()->numberBetween(10000, 60000),
+            'winding_length' => fake()->optional()->numberBetween(100, 6000),
             'number_of_strings' => fake()->optional()->randomElement([4, 5, 6]),
-            'high_gauge' => fake()->optional()->randomElement([40, 45, 50, 52, 54, 56]),
-            'low_gauge' => fake()->optional()->randomElement([90, 95, 100, 105, 110, 115]),
+            'highest_string_gauge' => fake()->optional()->randomElement([40, 45, 50, 52, 54, 56]),
+            'lowest_string_gauge' => fake()->optional()->randomElement([90, 95, 100, 105, 110, 115]),
             'created_by' => User::factory(),
         ];
     }

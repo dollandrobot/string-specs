@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('string_sets', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignUuid('brand_id')->constrained('brands')->cascadeOnDelete();
             $table->string('name');
             $table->string('product_code')->nullable();
             $table->integer('winding_length')->nullable();
             $table->integer('number_of_strings')->nullable();
-            $table->integer('high_gauge')->nullable();
-            $table->integer('low_gauge')->nullable();
+            $table->integer('highest_string_gauge')->nullable();
+            $table->integer('lowest_string_gauge')->nullable();
+            $table->foreignUuid('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
     }
