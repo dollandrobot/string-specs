@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\CountryCode;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,10 +20,13 @@ final class BrandFactory extends Factory
      */
     public function definition(): array
     {
+        /** @var CountryCode|null $countryCode */
+        $countryCode = fake()->boolean(70) ? fake()->randomElement(CountryCode::cases()) : null;
+
         return [
             'name' => fake()->unique()->company,
             'website' => fake()->optional()->url,
-            'country_code' => fake()->optional()->countryCode,
+            'country_code' => $countryCode?->value,
             'created_by' => User::factory(),
         ];
     }

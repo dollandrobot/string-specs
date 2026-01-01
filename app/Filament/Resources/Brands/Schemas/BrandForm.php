@@ -32,6 +32,7 @@ final class BrandForm
                 Select::make('country_code')
                     ->nullable()
                     ->label(__('Country'))
+                    ->enum(CountryCode::class)
                     ->options(collect(CountryCode::cases())->mapWithKeys(fn (CountryCode $country): array => [
                         $country->value => $country->label().' ('.$country->value.')',
                     ]))

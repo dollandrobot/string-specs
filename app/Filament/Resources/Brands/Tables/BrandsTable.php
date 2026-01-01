@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Brands\Tables;
 
+use App\Enums\CountryCode;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -27,9 +28,9 @@ final class BrandsTable
                     ->label(__('Website URL')),
                 ImageColumn::make('logo_path')
                     ->disk('public')
-                    ->rounded()
                     ->label(__('Brand Logo')),
                 TextColumn::make('country_code')
+                    ->formatStateUsing(fn (?string $code): string => ($code !== null) ? CountryCode::from($code)->value : '')
                     ->searchable()
                     ->label(__('Country Code')),
                 TextColumn::make('created_at')
