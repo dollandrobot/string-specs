@@ -13,6 +13,11 @@ final class EditStringSet extends EditRecord
 {
     protected static string $resource = StringSetResource::class;
 
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->with('brand');
+    }
+
     #[Override]
     public function getHeading(): string
     {

@@ -42,8 +42,8 @@ test('can create string set', function (): void {
             'product_code' => 'TS-12345',
             'winding_length' => 32.50,
             'number_of_strings' => 6,
-            'high_gauge' => '45',
-            'low_gauge' => '105',
+            'high_gauge' => 45,
+            'low_gauge' => 105,
         ])
         ->call('create')
         ->assertHasNoFormErrors();

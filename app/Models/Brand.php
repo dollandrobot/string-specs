@@ -20,6 +20,7 @@ final class Brand extends Model
         'website',
         'logo_path',
         'country_code',
+        'created_by',
     ];
 
     /**

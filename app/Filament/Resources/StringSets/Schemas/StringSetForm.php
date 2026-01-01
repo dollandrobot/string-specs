@@ -21,11 +21,22 @@ final class StringSetForm
                 TextInput::make('product_code'),
                 TextInput::make('winding_length')
                     ->numeric()
-                    ->step(0.01),
+                    ->step(0.01)
+                    ->minValue(100)
+                    ->maxValue(6000),
                 TextInput::make('number_of_strings')
-                    ->numeric(),
-                TextInput::make('high_gauge'),
-                TextInput::make('low_gauge'),
+                    ->numeric()
+                    ->minValue(1)
+                    ->maxValue(18),
+                TextInput::make('high_gauge')
+                    ->numeric()
+                    ->minValue(1)
+                    ->maxValue(200),
+                TextInput::make('low_gauge')
+                    ->numeric()
+                    ->minValue(1)
+                    ->maxValue(200)
+                    ->gt('high_gauge'),
             ]);
     }
 }
