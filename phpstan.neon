@@ -17,3 +17,16 @@ parameters:
     level: max
 
     tmpDir: /tmp/phpstan
+
+    ignoreErrors:
+        # Filament pages have dynamic parent methods
+        -
+            message: '#Call to an undefined static method .+::getEloquentQuery\(\)#'
+            paths:
+                - app/Filament/Resources/StringSets/Pages/EditStringSet.php
+                - app/Filament/Resources/StringSets/Pages/ListStringSets.php
+        # Eloquent generic factory types
+        -
+            message: '#Class .* uses generic trait .* but does not specify its types: TFactory#'
+            paths:
+                - app/Models/*
