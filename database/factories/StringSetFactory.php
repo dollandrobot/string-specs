@@ -21,13 +21,13 @@ final class StringSetFactory extends Factory
     public function definition(): array
     {
         return [
-            'brand_id' => Brand::inRandomOrder()->first()->id ?? Brand::factory(),
+            'brand_id' => Brand::factory(),
             'name' => fake()->word,
             'product_code' => fake()->optional()->bothify('??-#####'),
             'winding_length' => fake()->optional()->numberBetween(100, 6000),
             'number_of_strings' => fake()->optional()->randomElement([4, 5, 6]),
-            'highest_string_gauge' => fake()->optional()->randomElement([40, 45, 50, 52, 54, 56]),
-            'lowest_string_gauge' => fake()->optional()->randomElement([90, 95, 100, 105, 110, 115]),
+            'highest_string_gauge' => fake()->optional()->randomElement([8, 9, 10, 11]),
+            'lowest_string_gauge' => fake()->optional()->randomElement([42, 46, 48, 52, 54]),
             'created_by' => User::factory(),
         ];
     }

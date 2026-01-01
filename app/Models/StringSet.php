@@ -9,6 +9,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * StringSet Model
+ *
+ * Note on gauge naming convention:
+ * - highest_string_gauge: The gauge of the thinnest/highest-pitched string (smallest number, e.g., 9)
+ * - lowest_string_gauge: The gauge of the thickest/lowest-pitched string (largest number, e.g., 46)
+ * - Validation ensures: lowest_string_gauge > highest_string_gauge (e.g., 46 > 9)
+ */
 final class StringSet extends Model
 {
     use HasFactory;
@@ -49,8 +57,6 @@ final class StringSet extends Model
     public function casts(): array
     {
         return [
-            'name' => 'string',
-            'product_code' => 'string',
             'number_of_strings' => 'integer',
             'winding_length' => 'integer',
             'highest_string_gauge' => 'integer',

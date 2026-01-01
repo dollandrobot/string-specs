@@ -22,7 +22,7 @@ final class StringSetForm
                     ->required(),
                 TextInput::make('product_code'),
                 TextInput::make('winding_length')
-                    ->numeric()
+                    ->integer()
                     ->step(1)
                     ->minValue(100)
                     ->maxValue(6000),
@@ -31,10 +31,14 @@ final class StringSetForm
                     ->minValue(1)
                     ->maxValue(18),
                 TextInput::make('highest_string_gauge')
+                    ->label('High String Gauge')
+                    ->helperText('Gauge of the thinnest/highest-pitched string (e.g., 9 for a .009" string)')
                     ->integer()
                     ->minValue(1)
                     ->maxValue(200),
                 TextInput::make('lowest_string_gauge')
+                    ->label('Low String Gauge')
+                    ->helperText('Gauge of the thickest/lowest-pitched string (e.g., 46 for a .046" string)')
                     ->integer()
                     ->minValue(1)
                     ->maxValue(200)

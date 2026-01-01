@@ -26,10 +26,8 @@ final class StringSetsTable
                 TextColumn::make('product_code')
                     ->searchable(),
                 TextColumn::make('winding_length')
-                    ->numeric(decimalPlaces: 2)
                     ->sortable(),
                 TextColumn::make('number_of_strings')
-                    ->numeric()
                     ->sortable(),
                 TextColumn::make('highest_string_gauge')
                     ->searchable(),
